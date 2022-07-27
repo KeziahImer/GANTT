@@ -9,7 +9,7 @@ export class Form extends React.Component {
 
     render() {
         return (
-            <form action="/ma-page-de-traitement" method="post">
+            <form action="http://localhost:3000/" method="post">
                 <div>
                     <label for="name">Username :</label>
                     <input type="text" id="username" name="username" />
