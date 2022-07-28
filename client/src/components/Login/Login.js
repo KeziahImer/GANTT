@@ -1,34 +1,42 @@
 import React from 'react'
-import './Login.css'
-
-export class Form extends React.Component {
-    constructor(props) {
-        super(props);
-        this.name = this.props.name
-    }
-
-    render() {
-        return (
-            <form action="http://localhost:3000/" method="post">
-                <div>
-                    <label for="name">Username :</label>
-                    <input type="text" id="username" name="username" />
-                </div>
-                <div>
-                    <label for="mail">Password :</label>
-                    <input type="text" id="password" name="password" />
-                </div>
-                <button type="submit">{this.name}</button>
-            </form>
-        );
-    }
-}
+import TextField from '@material-ui/core/TextField'
+import { Button } from '@material-ui/core'
 
 export default function Login() {
   return (
-    <div id='Login'>
-        <h1>Login</h1>
-        <Form name='Connexion'/>
+    <div>
+        <h1>
+            Login
+        </h1>
+        <form>
+            <div>
+                <TextField
+                id='email'
+                label='Email'
+                type='text'
+                name='email'
+                />
+            </div>
+            <div>
+                <TextField
+                id='password'
+                label='Password'
+                type='text'
+                name='password'
+                />
+            </div>
+            <div>
+                <br />
+                <Button
+                variant='contained'
+                color='primary'
+                type='submit'
+                >
+                    Se connecter
+                </Button>
+            </div>
+        </form>
     </div>
-  );
+  )
 }
+
