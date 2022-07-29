@@ -3,16 +3,13 @@ import TextField from '@material-ui/core/TextField'
 import { Button } from '@material-ui/core'
 import axios from 'axios'
 
-function sendData(credentials) {
-    return axios.post('http://localhost:3000/api/auth/register', credentials)
-    .then(res => {
-        console.log(res);
-        console.log(res.data);  
-    })
+const sendData = async credentials => {
+    const res = await axios.post('http://localhost:3000/api/auth/register', credentials)
+    console.log(res)
+    console.log(res.data)
 }
 
-export default function Register() {
-
+const Register = () => {
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -24,7 +21,6 @@ export default function Register() {
             ...credentials,
             [name]: value
         })
-        console.log({currentTarget})
     }
 
     const handleSubmit = async (event) => {
@@ -55,7 +51,7 @@ export default function Register() {
                 <TextField
                 id='password'
                 label='Password'
-                type='text'
+                type='password'
                 name='password'
                 onChange={handleChange}
                 />
@@ -74,3 +70,5 @@ export default function Register() {
     </div>
   )
 }
+
+export default Register;

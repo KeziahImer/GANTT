@@ -1,12 +1,12 @@
-import './App.css';
+import './styles/App.css';
 import { Routes, Route } from 'react-router-dom'
-import Home from './components/Home/Home'
-import Navbar from './components/Navbar/Navbar';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Users from './components/Users/Users'
+import Home from './routes/Home'
+import Navbar from './routes/Navbar';
+import Login from './routes/Login';
+import Register from './routes/Register';
+import Profile from './routes/Profile'
 
-function App() {
+const App = () => {
   return (
     <div className='App'>
       <div className='Navbar'>
@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
-        <Route path='/users' element={<Users />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   );

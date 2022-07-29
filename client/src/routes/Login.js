@@ -2,18 +2,27 @@ import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Button } from '@material-ui/core'
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
-function authenticate(credentials) {
-    return axios.post('http://localhost:3000/api/auth/login', credentials)
-    .then(res => res.data)
-    .then(data => {
-        window.localStorage.setItem("authToken", data.token)
-        axios.defaults.headers["Authorization"] = 'Bearer ' + data.token
-    })
+const authenticate = async credentials => {
+    const res = await axios.post('http://localhost:3000/api/auth/login', credentials)
+    const data = res.data
+    window.localStorage.setItem("authToken", data.token)
+    axios.defaults.headers["Authorization"] = 'Bearer ' + data.token
 }
 
-export default function Login() {
+const isAuthenticated = () => {
+    const token = window.localStorage.getItem("authToken")
+    if (token) {
+        const {exp} = jwtDecode(token)
+        if (exp * 1000 > new Date().getTime()) {
+            return true
+        }
+    }
+    return false
+}
 
+const Login = () => {
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -55,7 +64,7 @@ export default function Login() {
                 <TextField
                 id='password'
                 label='Password'
-                type='text'
+                type='password'
                 name='password'
                 onChange={handleChange}
                 />
@@ -74,3 +83,6 @@ export default function Login() {
     </div>
   )
 }
+
+export {isAuthenticated};
+export default Login;
