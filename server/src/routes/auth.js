@@ -1,24 +1,24 @@
-const express = require('express');
-const User = require('../models/auth');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const router = express.Router();
+import { Router } from 'express';
+import User from '../models/auth.js';
+import { hash as _hash, compare } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 async function register(req, res, next) {
-    const hash = await bcrypt.hash(req.body.password, 10)
+    const hash = await _hash(req.body.password, 10)
     try {
         const user = new User({
             email: req.body.email,
             password: hash
         })
-        await user.save()
         try {
+            await user.save()
             res.status(201).json({ messsage: 'Utilisateur créé !'})
         } catch (error) {
             res.status(400).json({error})   
         }
     } catch (error) {
         res.status(500).json({ error });
+        console.log(error);
     }
 };
 
@@ -27,7 +27,7 @@ async function login(req, res, next) {
     if (user === null) {
         res.status(401).json({ message: 'Paire identifiant/mot de passe incorrect !' })
     } else {
-        const valid = await bcrypt.compare(req.body.password, user.password)
+        const valid = await compare(req.body.password, user.password)
         try {
             if (!valid) {
                 res.status(401).json({ message: 'Paire identifiant/mot de passe incorrect !' });
@@ -40,7 +40,27 @@ async function login(req, res, next) {
     }
 };
 
+async function profileUpdate(req, res, next) {
+    const user = await User.findOne({ _id: req.body.id })
+    if (user === null) {
+        res.status(401).json({ message: 'Compte inexistant' })
+    } else {
+        const hash = await _hash(req.body.password, 10)
+        await User.updateOne({_id: user._id},{ password: hash })
+        res.status(201).json({ message: 'Mot de passe modifié !' })
+    }
+}
+
+async function profileDelete(req, res, next) {
+    await User.deleteOne({_id: req.params.id})
+    res.status(201).json({ message: 'Compte supprimé !' })
+}
+
+const router = Router();
+
 router.post('/register', register);
 router.post('/login', login);
+router.post('/profile', profileUpdate);
+router.delete('/profile/:id', profileDelete)
 
-module.exports = router;
+export default router;

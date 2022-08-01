@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
-import { Button } from '@material-ui/core'
+import { Button, FormControl } from '@material-ui/core'
 import axios from 'axios'
 
 const sendData = async credentials => {
-    const res = await axios.post('http://localhost:3000/api/auth/register', credentials)
-    console.log(res)
-    console.log(res.data)
+    try {
+        await axios.post('http://localhost:8000/api/auth/register', credentials)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const Register = () => {
+    const navigate = useNavigate()
+
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -23,10 +28,10 @@ const Register = () => {
         })
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         try {
             await sendData(credentials)
+            navigate('/login')
         } catch (error) {
             console.log(error)
         }
@@ -37,7 +42,7 @@ const Register = () => {
         <h1>
             Register
         </h1>
-        <form onSubmit={handleSubmit}>
+        <FormControl>
             <div>
                 <TextField
                 id='email'
@@ -61,12 +66,12 @@ const Register = () => {
                 <Button
                 variant='contained'
                 color='primary'
-                type='submit'
+                onClick={handleSubmit}
                 >
                     S'inscrire
                 </Button>
             </div>
-        </form>
+        </FormControl>
     </div>
   )
 }

@@ -1,7 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/auth');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import router from './routes/auth.js';
+import cors from 'cors';
 
 const app = express();
 mongoose.connect('mongodb+srv://Keziah:DDY9upgUNkdeh7y@api.p0rw3.mongodb.net/?retryWrites=true&w=majority',
@@ -16,10 +17,21 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE', 'PATCH');
     next();
   });
 
-app.use('/api/auth', authRoutes);
+app.use(
+  cors({
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    origin: '*',
+    exposedHeaders: 'X-Total-Count, X-Total-Result, Location, Content-Disposition',
+    optionsSuccessStatus: 204,
+  })
+);
 
-module.exports = app;
+app.use('/api/auth', router);
+
+app.listen(8000, () => console.log('Listening on 8000'));
+
+// export default app;

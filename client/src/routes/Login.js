@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'   
 import TextField from '@material-ui/core/TextField'
-import { Button } from '@material-ui/core'
+import { Button, FormControl } from '@material-ui/core'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 const authenticate = async credentials => {
-    const res = await axios.post('http://localhost:3000/api/auth/login', credentials)
+    const res = await axios.post('http://localhost:8000/api/auth/login', credentials)
     const data = res.data
     window.localStorage.setItem("authToken", data.token)
     axios.defaults.headers["Authorization"] = 'Bearer ' + data.token
@@ -23,6 +24,8 @@ const isAuthenticated = () => {
 }
 
 const Login = () => {
+    const navigate = useNavigate()
+
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -36,21 +39,21 @@ const Login = () => {
         })
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         try {
             await authenticate(credentials)
+            navigate('/profile')
         } catch (error) {
             console.log(error)
         }
     }
 
-  return (
-    <div>
+    return (
+      <div>
         <h1>
             Login
         </h1>
-        <form onSubmit={handleSubmit}>
+        <FormControl>
             <div>
                 <TextField
                 id='email'
@@ -74,14 +77,14 @@ const Login = () => {
                 <Button
                 variant='contained'
                 color='primary'
-                type='submit'
+                onClick={handleSubmit}
                 >
                     Se connecter
                 </Button>
             </div>
-        </form>
-    </div>
-  )
+        </FormControl>
+      </div>
+    )
 }
 
 export {isAuthenticated};
