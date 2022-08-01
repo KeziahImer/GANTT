@@ -37,6 +37,15 @@ const Profile = () => {
     }
   }
 
+  const handleLogout = () => {
+    try {
+      window.localStorage.removeItem('authToken')
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleChange = ({currentTarget}) => {
     const value = currentTarget.value;
     setCredentials({
@@ -83,6 +92,14 @@ const Profile = () => {
                 onClick={handleDelete}
                 >
                   Supprimer le compte
+                </Button>
+                <br />
+                <br />
+                <Button
+                variant='contained'
+                onClick={handleLogout}
+                >
+                  Déconnexion
                 </Button>
             </div>
           </FormControl>

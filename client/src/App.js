@@ -5,6 +5,8 @@ import Navbar from './routes/Navbar';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import Profile from './routes/Profile'
+import Create from './routes/projects/Create'
+import Gantt from './routes/projects/Gantt'
 
 const App = () => {
   return (
@@ -14,9 +16,11 @@ const App = () => {
       </div>
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
+        <Route path='/login' element={<Login/>} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/projects/create' element={<Create />} />
+        <Route path='/projects/Gantt' element={<Gantt />} />
       </Routes>
     </div>
   );

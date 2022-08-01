@@ -18,7 +18,6 @@ async function register(req, res, next) {
         }
     } catch (error) {
         res.status(500).json({ error });
-        console.log(error);
     }
 };
 

@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import router from './routes/auth.js';
+import AuthRouter from './routes/auth.js';
+import ProjectRouter from './routes/projects.js';
 import cors from 'cors';
 
 const app = express();
@@ -30,8 +31,7 @@ app.use(
   })
 );
 
-app.use('/api/auth', router);
+app.use('/api/auth', AuthRouter);
+app.use('/api/projects', ProjectRouter)
 
 app.listen(8000, () => console.log('Listening on 8000'));
-
-// export default app;
