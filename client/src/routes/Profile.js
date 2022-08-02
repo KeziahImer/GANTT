@@ -57,7 +57,7 @@ const Profile = () => {
     return (
       <div>
         <h1>
-          You're not authenticated ! Login before access this page
+          Tu n'es pas authentifié ! Connecte toi avant de pouvoir accéder à cette page.
         </h1>
       </div>
     )
@@ -65,7 +65,7 @@ const Profile = () => {
     return (
       <div>
         <h1>
-          You can modify your password here or delete your account
+          Ici tu peux te déconnecter, modifier ton compte ou le supprimer.
         </h1>
           <FormControl>
             <TextField

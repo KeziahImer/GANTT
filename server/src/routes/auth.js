@@ -3,7 +3,7 @@ import User from '../models/auth.js';
 import { hash as _hash, compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-async function register(req, res, next) {
+const register = async (req, res, next) => {
     const hash = await _hash(req.body.password, 10)
     try {
         const user = new User({
@@ -21,7 +21,7 @@ async function register(req, res, next) {
     }
 };
 
-async function login(req, res, next) {
+const login = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email })
     if (user === null) {
         res.status(401).json({ message: 'Paire identifiant/mot de passe incorrect !' })
@@ -39,7 +39,7 @@ async function login(req, res, next) {
     }
 };
 
-async function profileUpdate(req, res, next) {
+const profileUpdate = async (req, res, next) => {
     const user = await User.findOne({ _id: req.body.id })
     if (user === null) {
         res.status(401).json({ message: 'Compte inexistant' })
@@ -50,7 +50,7 @@ async function profileUpdate(req, res, next) {
     }
 }
 
-async function profileDelete(req, res, next) {
+const profileDelete = async (req, res, next) => {
     await User.deleteOne({_id: req.params.id})
     res.status(201).json({ message: 'Compte supprimé !' })
 }

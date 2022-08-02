@@ -10,7 +10,11 @@ const Navbar = () => {
             <Link to='/register'>Register/</Link>
             <Link to='/login'>Login/</Link>
             <Link to='/profile'>Profile/</Link>
-            <Link to='/projects/create'>Gestion de projets/</Link>
+            <Link to='/projects/create'>Créer un projet/</Link>
+            <Link to='/projects/update'>Modifier un projet/</Link>
+            <Link to='/projects/delete'>Supprimer un projet/</Link>
+            <Link to='/projects/addtask'>Ajouter une tâche/</Link>
+            <Link to='/projects/removetask'>Supprimer une tâche/</Link>
             <Link to='/projects/Gantt'>Affichage des projets</Link>
         </nav>
     </div>

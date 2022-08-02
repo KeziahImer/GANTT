@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { isAuthenticated } from '../Login';
 import axios from 'axios'
 
-const Create = () => {
+const Update = () => {
     const [args, setArgs] = useState({
-        name: "",
-        start: "",
-        end: ""
+        oldname: "",
+        newname: "",
+        newstart: "",
+        newend: ""
     });
 
     const handleChange = ({currentTarget}) => {
@@ -20,7 +21,8 @@ const Create = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:8000/api/projects/create', args)
+            console.log(args)
+            await axios.post('http://localhost:8000/api/projects/update', args)
         } catch (error) {
             console.log(error)
         }
@@ -38,31 +40,43 @@ const Create = () => {
         return (
             <div>
                 <h1>
-                    Ici tu peux créer un projet.
+                    Ici tu peux modifier un projet.
                 </h1>
+                <p>
+                    <i>Tous les champs doivent être remplis.</i>
+                </p>
                 <FormControl>
                     <div>
                         <TextField
-                        id='name'
-                        label='Name'
+                        id='oldname'
+                        label='Old Name'
                         type='text'
-                        name='name'
+                        name='oldname'
                         onChange={handleChange}
                         />
                     </div>
                     <div>
                         <TextField
-                        id='start'
-                        type='date'
-                        name='start'
+                        id='newname'
+                        label='New Name'
+                        type='text'
+                        name='newname'
                         onChange={handleChange}
                         />
                     </div>
                     <div>
                         <TextField
-                        id='end'
+                        id='newstart'
                         type='date'
-                        name='end'
+                        name='newstart'
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                        id='newend'
+                        type='date'
+                        name='newend'
                         onChange={handleChange}
                         />
                     </div>
@@ -73,7 +87,7 @@ const Create = () => {
                         color='primary'
                         onClick={handleSubmit}
                         >
-                            Créer ce projet
+                            Modifier le projet
                         </Button>
                     </div>
                 </FormControl>
@@ -82,4 +96,4 @@ const Create = () => {
     }
 }
 
-export default Create;
+export default Update;

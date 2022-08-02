@@ -3,11 +3,9 @@ import React, { useState } from 'react'
 import { isAuthenticated } from '../Login';
 import axios from 'axios'
 
-const Create = () => {
+const Remove = () => {
     const [args, setArgs] = useState({
         name: "",
-        start: "",
-        end: ""
     });
 
     const handleChange = ({currentTarget}) => {
@@ -20,7 +18,7 @@ const Create = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:8000/api/projects/create', args)
+            await axios.post('http://localhost:8000/api/projects/removetask', args)
         } catch (error) {
             console.log(error)
         }
@@ -38,13 +36,13 @@ const Create = () => {
         return (
             <div>
                 <h1>
-                    Ici tu peux créer un projet.
+                    Ici tu peux supprimer une tâche d'un projet.
                 </h1>
                 <FormControl>
                     <div>
                         <TextField
                         id='name'
-                        label='Name'
+                        label='Project Name'
                         type='text'
                         name='name'
                         onChange={handleChange}
@@ -52,17 +50,10 @@ const Create = () => {
                     </div>
                     <div>
                         <TextField
-                        id='start'
-                        type='date'
-                        name='start'
-                        onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                        id='end'
-                        type='date'
-                        name='end'
+                        id='task'
+                        label='Task Name'
+                        type='text'
+                        name='task'
                         onChange={handleChange}
                         />
                     </div>
@@ -73,7 +64,7 @@ const Create = () => {
                         color='primary'
                         onClick={handleSubmit}
                         >
-                            Créer ce projet
+                            Supprimer cette tâche du projet
                         </Button>
                     </div>
                 </FormControl>
@@ -82,4 +73,4 @@ const Create = () => {
     }
 }
 
-export default Create;
+export default Remove;

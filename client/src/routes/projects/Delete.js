@@ -3,24 +3,22 @@ import React, { useState } from 'react'
 import { isAuthenticated } from '../Login';
 import axios from 'axios'
 
-const Create = () => {
+const Delete = () => {
     const [args, setArgs] = useState({
         name: "",
-        start: "",
-        end: ""
     });
 
     const handleChange = ({currentTarget}) => {
-        const {value, name} = currentTarget;
+        const {value} = currentTarget;
         setArgs({
             ...args,
-            [name]: value
+            name: value
         })
     }
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:8000/api/projects/create', args)
+            await axios.delete(`http://localhost:8000/api/projects/delete/${args.name}`)
         } catch (error) {
             console.log(error)
         }
@@ -38,7 +36,7 @@ const Create = () => {
         return (
             <div>
                 <h1>
-                    Ici tu peux créer un projet.
+                    Ici tu peux supprimer un projet.
                 </h1>
                 <FormControl>
                     <div>
@@ -51,29 +49,13 @@ const Create = () => {
                         />
                     </div>
                     <div>
-                        <TextField
-                        id='start'
-                        type='date'
-                        name='start'
-                        onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                        id='end'
-                        type='date'
-                        name='end'
-                        onChange={handleChange}
-                        />
-                    </div>
-                    <div>
                         <br />
                         <Button
                         variant='contained'
-                        color='primary'
+                        color='secondary'
                         onClick={handleSubmit}
                         >
-                            Créer ce projet
+                            Supprimer le projet
                         </Button>
                     </div>
                 </FormControl>
@@ -82,4 +64,4 @@ const Create = () => {
     }
 }
 
-export default Create;
+export default Delete;
