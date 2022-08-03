@@ -4,9 +4,7 @@ import { isAuthenticated } from '../Login';
 import axios from 'axios'
 
 const Remove = () => {
-    const [args, setArgs] = useState({
-        name: "",
-    });
+    const [args, setArgs] = useState({});
 
     const handleChange = ({currentTarget}) => {
         const {value, name} = currentTarget;

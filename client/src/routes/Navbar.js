@@ -15,7 +15,7 @@ const Navbar = () => {
             <Link to='/projects/delete'>Supprimer un projet/</Link>
             <Link to='/projects/addtask'>Ajouter une tâche/</Link>
             <Link to='/projects/removetask'>Supprimer une tâche/</Link>
-            <Link to='/projects/Gantt'>Affichage des projets</Link>
+            <Link to='/projects'>Affichage des projets</Link>
         </nav>
     </div>
   );

@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
+import { ObjectId } from 'mongodb';
 
 const projectSchema = mongoose.Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     start: { type: Date, required: true },
     end: { type: Date, required: true },
-    tasks: [{ type: String, required: false }]
+    tasks: [{ type: ObjectId, ref: 'Task', required: false }],
+    userId: { type: ObjectId, ref: 'Users', required: true }
 });
-
-projectSchema.plugin(uniqueValidator);
 
 export default mongoose.model('Project', projectSchema);

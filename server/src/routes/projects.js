@@ -1,11 +1,14 @@
 import { Router } from 'express'
 import Project from '../models/projects.js'
+import Task from '../models/tasks.js'
 
 const CreateProject = async (req, res, next) => {
+    console.log(req.body)
     const project = new Project({
         name: req.body.name,
         start: req.body.start,
-        end: req.body.end
+        end: req.body.end,
+        userId: req.body.userId
     })
     try {
         await project.save()
@@ -37,7 +40,13 @@ const UpdateProject = async (req, res, next) => {
 
 const AddtaskProject = async (req, res, next) => {
     try {
-        await Project.updateOne({name: req.body.name}, {$push: {tasks: req.body.task}})
+        const task = new Task({
+            name: req.body.task_name,
+            start: req.body.start,
+            end: req.body.end
+        })
+        await task.save()
+        await Project.updateOne({name: req.body.project_name}, {$push: {tasks: task}})
         res.status(201).json({ message: 'Tâche ajoutée' })
     } catch (error) {
         res.status(500).json({ error })
@@ -55,9 +64,19 @@ const RemovetaskProject = async (req, res, next) => {
 
 const GetProject = async (req, res, next) => {
     try {
-        const projects = await Project.find()
+        const projects = await Project.find({ userId: req.params.id });
         res.status(200).json(projects)
     } catch (error) {
+        res.status(500).json({ error })
+    }
+}
+
+const GetOneProject = async (req, res, next) => {
+    try {
+        const project = await Project.find({ _id: req.params.id }).populate('tasks')
+        res.status(200).json(project)
+    } catch (error) {
+        console.log(error)
         res.status(500).json({ error })
     }
 }
@@ -69,6 +88,7 @@ router.post('/update', UpdateProject)
 router.delete('/delete/:name', DeleteProject)
 router.post('/addtask', AddtaskProject)
 router.post('/removetask', RemovetaskProject)
-router.get('/get', GetProject)
+router.get('/get/:id', GetProject)
+router.get('/details/:id', GetOneProject)
 
 export default router;

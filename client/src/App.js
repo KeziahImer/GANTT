@@ -6,11 +6,12 @@ import Login from './routes/Login'
 import Register from './routes/Register'
 import Profile from './routes/Profile'
 import Create from './routes/projects/Create'
-import Gantt from './routes/projects/Gantt'
+import Overview from './routes/projects/Gantt'
 import Delete from './routes/projects/Delete'
 import Update from './routes/projects/Update'
 import Add from './routes/tasks/Add';
 import Remove from './routes/tasks/Remove';
+import Project from './components/Project';
 
 const App = () => {
   return (
@@ -23,8 +24,9 @@ const App = () => {
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/projects' element={<Overview />} />
         <Route path='/projects/create' element={<Create />} />
-        <Route path='/projects/Gantt' element={<Gantt />} />
+        <Route path='/projects/view/:id' element={<Project />} />
         <Route path='/projects/delete' element={<Delete />} />
         <Route path='/projects/update' element={<Update />} />
         <Route path='/projects/addtask' element={<Add />} />

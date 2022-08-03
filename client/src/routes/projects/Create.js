@@ -1,14 +1,11 @@
 import { Button, FormControl, TextField } from '@material-ui/core';
 import React, { useState } from 'react'
 import { isAuthenticated } from '../Login';
+import jwtDecode from 'jwt-decode';
 import axios from 'axios'
 
 const Create = () => {
-    const [args, setArgs] = useState({
-        name: "",
-        start: "",
-        end: ""
-    });
+    const [args, setArgs] = useState({});
 
     const handleChange = ({currentTarget}) => {
         const {value, name} = currentTarget;
@@ -20,7 +17,13 @@ const Create = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:8000/api/projects/create', args)
+            const {userId} = await jwtDecode(window.localStorage.getItem('authToken'))
+            const argus = ({
+                ...args,
+                userId: userId
+            })
+            console.log(args)
+            await axios.post('http://localhost:8000/api/projects/create', argus)
         } catch (error) {
             console.log(error)
         }

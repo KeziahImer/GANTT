@@ -1,34 +1,32 @@
-import { Button, FormControl, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { isAuthenticated } from '../Login';
 import axios from 'axios'
-import Gantt from '../../components/gantt';
+import jwtDecode from 'jwt-decode';
 
 const Overview = () => {
 
-  const data = {
-    data: [
-        { id: 1, text: 'Task #1', start_date: '2019-04-15', duration: 3, progress: 0.6 },
-        { id: 2, text: 'Task #2', start_date: '2019-04-18', duration: 3, progress: 0.4 }
-    ],
-    links: [
-        { id: 1, source: 1, target: 2, type: '0' }
-    ]
-};
-  
-    // const [data, setData] = useState([])
+    const navigate = useNavigate()
 
-    // const getData = async () => {
-    //   try {
-    //       const data = await axios.get('http://localhost:8000/api/data/get')
-    //       setData(data.data)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
+    const [projects, setProjects] = useState([])
 
-    // if (data.length === 0) 
-    //   getData()
+    const getProjects = async () => {
+      try {
+        const {userId} = await jwtDecode(window.localStorage.getItem("authToken"))
+        const res = await axios.get(`http://localhost:8000/api/projects/get/${userId}`)
+        setProjects(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const goTo = id => {
+      navigate(`/projects/view/${id}`, {state: {userId: id}})
+    }
+
+    if (projects.length === 0)
+      getProjects()
 
     if (!isAuthenticated()) {
       return (
@@ -41,11 +39,24 @@ const Overview = () => {
     } else {
       return (
         <div>
-          <h1>
-            Le calendrier de tes projets :
-          </h1>
-          <div className="gantt-container">
-            <Gantt dataSource={data}/>
+          <div>
+            <h1>
+              Choisis un projet :
+            </h1>
+          </div>
+          <div>
+            {projects.map(project => {
+              return (
+                <div>
+                  <Button
+                  onClick={() => goTo(project._id)}
+                  >
+                    {project.name}
+                  </Button>
+                  <br />
+                </div>
+                )
+              })}
           </div>
         </div>
       )

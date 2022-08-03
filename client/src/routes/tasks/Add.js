@@ -4,9 +4,7 @@ import { isAuthenticated } from '../Login';
 import axios from 'axios'
 
 const Add = () => {
-    const [args, setArgs] = useState({
-        name: "",
-    });
+    const [args, setArgs] = useState({});
 
     const handleChange = ({currentTarget}) => {
         const {value, name} = currentTarget;
@@ -41,19 +39,35 @@ const Add = () => {
                 <FormControl>
                     <div>
                         <TextField
-                        id='name'
+                        id='project_name'
                         label='Project Name'
                         type='text'
-                        name='name'
+                        name='project_name'
                         onChange={handleChange}
                         />
                     </div>
                     <div>
                         <TextField
-                        id='task'
+                        id='task_name'
                         label='Task Name'
                         type='text'
-                        name='task'
+                        name='task_name'
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                        id='start'
+                        type='date'
+                        name='start'
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                        id='end'
+                        type='date'
+                        name='end'
                         onChange={handleChange}
                         />
                     </div>
