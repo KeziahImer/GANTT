@@ -1,6 +1,7 @@
+import React, { useState, useEffect } from 'react'
 import { Tab, Box, Tabs } from '@material-ui/core'
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+
 import { useLocation } from 'react-router-dom'
 import './Project.css'
 
