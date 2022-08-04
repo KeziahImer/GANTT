@@ -3,7 +3,6 @@ import Project from '../models/projects.js'
 import Task from '../models/tasks.js'
 
 const CreateProject = async (req, res, next) => {
-    console.log(req.body)
     const project = new Project({
         name: req.body.name,
         start: req.body.start,
