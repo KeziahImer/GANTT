@@ -1,4 +1,4 @@
-# JS_Project
+# GANTT
 Créer une app en REACTJS avec une api en NODEJS
 
 Dans le dossier server : npm i && npm start
