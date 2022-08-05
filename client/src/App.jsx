@@ -1,18 +1,18 @@
-import React from "react";
-import "./styles/App.css";
-import { Routes, Route } from "react-router-dom";
-import Home from "./routes/Home";
-import Navbar from "./routes/Navbar";
-import Login from "./routes/Login";
-import Register from "./routes/Register";
-import Profile from "./routes/Profile";
-import Create from "./routes/projects/Create";
-import Overview from "./routes/projects/Gantt";
-import Delete from "./routes/projects/Delete";
-import Update from "./routes/projects/Update";
-import Add from "./routes/tasks/Add";
-import Remove from "./routes/tasks/Remove";
-import Project from "./components/Project";
+import React from 'react';
+import './styles/App.css';
+import { Routes, Route } from 'react-router-dom';
+import Home from './routes/Home';
+import Navbar from './routes/Navbar';
+import Login from './routes/Login';
+import Register from './routes/Register';
+import Profile from './routes/Profile';
+import Create from './routes/projects/Create';
+import Overview from './routes/projects/Gantt';
+import Delete from './routes/projects/Delete';
+import Update from './routes/projects/Update';
+import Add from './routes/tasks/Add';
+import Remove from './routes/tasks/Remove';
+import Project from './components/Project';
 
 const App = () => (
   <div className="App">

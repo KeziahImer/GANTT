@@ -16,8 +16,8 @@
 	"parser": "@babel/eslint-parser",
 	"parserOptions": {
 		"parser": "babel-eslint",
+		"requireConfigFile": false,
 		"ecmaVersion": 2019,
-        "requireConfigFile": "false",
 		"sourceType": "module"
 	},
 	"plugins": ["react", "prettier", "import"],

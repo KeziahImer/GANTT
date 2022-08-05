@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import { Button, FormControl } from "@material-ui/core";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import { Button, FormControl } from '@material-ui/core';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 const authenticate = async (credentials) => {
   const res = await axios.post(
-    "http://localhost:8000/api/auth/login",
+    'http://localhost:8000/api/auth/login',
     credentials
   );
   const data = res.data;
-  window.localStorage.setItem("authToken", data.token);
+  window.localStorage.setItem('authToken', data.token);
   axios.defaults.headers.Authorization = `Bearer ${data.token}`;
 };
 
 const isAuthenticated = () => {
-  const token = window.localStorage.getItem("authToken");
+  const token = window.localStorage.getItem('authToken');
   if (token) {
     const { exp } = jwtDecode(token);
     if (exp * 1000 > new Date().getTime()) {
@@ -30,22 +30,22 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   });
 
   const handleChange = ({ currentTarget }) => {
     const { value, name } = currentTarget;
     setCredentials({
       ...credentials,
-      [name]: value,
+      [name]: value
     });
   };
 
   const handleSubmit = async () => {
     try {
       await authenticate(credentials);
-      navigate("/profile");
+      navigate('/profile');
     } catch (error) {
       return error;
     }

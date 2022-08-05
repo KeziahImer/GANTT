@@ -1,18 +1,18 @@
-import { Button, FormControl, TextField } from "@material-ui/core";
-import React, { useState } from "react";
-import axios from "axios";
-import { isAuthenticated } from "../Login";
+import { Button, FormControl, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { isAuthenticated } from '../Login';
 
 const Delete = () => {
   const [args, setArgs] = useState({
-    name: "",
+    name: ''
   });
 
   const handleChange = ({ currentTarget }) => {
     const { value } = currentTarget;
     setArgs({
       ...args,
-      name: value,
+      name: value
     });
   };
 

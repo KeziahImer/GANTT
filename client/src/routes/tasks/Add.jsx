@@ -1,7 +1,7 @@
-import { Button, FormControl, TextField } from "@material-ui/core";
-import React, { useState } from "react";
-import axios from "axios";
-import { isAuthenticated } from "../Login";
+import { Button, FormControl, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { isAuthenticated } from '../Login';
 
 const Add = () => {
   const [args, setArgs] = useState({});
@@ -10,13 +10,13 @@ const Add = () => {
     const { value, name } = currentTarget;
     setArgs({
       ...args,
-      [name]: value,
+      [name]: value
     });
   };
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8000/api/projects/addtask", args);
+      await axios.post('http://localhost:8000/api/projects/addtask', args);
     } catch (error) {
       return error;
     }

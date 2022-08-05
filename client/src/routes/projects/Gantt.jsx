@@ -1,9 +1,9 @@
-import { Button } from "@material-ui/core";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { isAuthenticated } from "../Login";
+import { Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import { isAuthenticated } from '../Login';
 
 const Overview = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Overview = () => {
   const getProjects = async () => {
     try {
       const { userId } = await jwtDecode(
-        window.localStorage.getItem("authToken")
+        window.localStorage.getItem('authToken')
       );
       const res = await axios.get(
         `http://localhost:8000/api/projects/get/${userId}`

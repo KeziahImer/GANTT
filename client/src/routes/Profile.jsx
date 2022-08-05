@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FormControl, TextField, Button } from "@material-ui/core";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { isAuthenticated } from "./Login";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FormControl, TextField, Button } from '@material-ui/core';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import { isAuthenticated } from './Login';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState([]);
 
-  const token = window.localStorage.getItem("authToken");
+  const token = window.localStorage.getItem('authToken');
   if (token) {
     setUserId(jwtDecode(token));
   }
 
   const [credentials, setCredentials] = useState({
     id: userId,
-    password: "",
+    password: ''
   });
 
   const handleUpdate = async () => {
     try {
-      await axios.post("http://localhost:8000/api/auth/profile", credentials);
-      navigate("/");
+      await axios.post('http://localhost:8000/api/auth/profile', credentials);
+      navigate('/');
     } catch (error) {
       return error;
     }
@@ -32,8 +32,8 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:8000/api/auth/profile/${userId}`);
-      window.localStorage.removeItem("authToken");
-      navigate("/");
+      window.localStorage.removeItem('authToken');
+      navigate('/');
     } catch (error) {
       return error;
     }
@@ -42,8 +42,8 @@ const Profile = () => {
 
   const handleLogout = () => {
     try {
-      window.localStorage.removeItem("authToken");
-      navigate("/");
+      window.localStorage.removeItem('authToken');
+      navigate('/');
     } catch (error) {
       return error;
     }
@@ -54,7 +54,7 @@ const Profile = () => {
     const value = currentTarget.value;
     setCredentials({
       ...credentials,
-      password: value,
+      password: value
     });
   };
 

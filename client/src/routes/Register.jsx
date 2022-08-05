@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import { Button, FormControl } from "@material-ui/core";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import { Button, FormControl } from '@material-ui/core';
+import axios from 'axios';
 
 const sendData = async (credentials) => {
   try {
-    await axios.post("http://localhost:8000/api/auth/register", credentials);
+    await axios.post('http://localhost:8000/api/auth/register', credentials);
   } catch (error) {
     return error;
   }
@@ -17,22 +17,22 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   });
 
   const handleChange = ({ currentTarget }) => {
     const { value, name } = currentTarget;
     setCredentials({
       ...credentials,
-      [name]: value,
+      [name]: value
     });
   };
 
   const handleSubmit = async () => {
     try {
       await sendData(credentials);
-      navigate("/login");
+      navigate('/login');
     } catch (error) {
       return error;
     }
